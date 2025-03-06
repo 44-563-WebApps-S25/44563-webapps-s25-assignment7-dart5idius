@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Reflex</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+  <style>
+    #counter {
+      font-size: 24px;
+      font-weight: bold;
+      margin: 20px 0;
+    }
+  </style>
+</head>
+<body>
+    <div class="container text-center">
+        <h2>Siddharth Reflexes</h2>
+        <div id="target">Your time: </div>
+        <div id="counter">Count: </div>
+        <button type="button" class="btn btn-primary" id="go-button">Go</button>
+        <button type="button" class="btn btn-success" id="halt-button">Halt</button>
+      </div>
+
+      <script>
+        // Variables
+        let haltTime = undefined; // To record when the halt button is pressed
+        let startTime = undefined; // To record when the game starts
+        let countdownInterval = undefined; // To manage the countdown interval
+    
+        // Function to start the countdown
+        function startCountdown() {
+          // Reset haltTime
+          haltTime = undefined;
+    
+          // Set a random delay between 2 and 5 seconds (2000ms to 5000ms)
+          const delay = Math.floor(Math.random() * 3000) + 2000;
+    
+          // Update the target div with the delay time
+          document.getElementById("target").textContent = `Your time: ${delay / 1000} seconds`;
+    
+          // Start the countdown
+          let count = delay / 1000;
+          document.getElementById("counter").textContent = `Count: ${count.toFixed(1)}`;
+    
+          countdownInterval = setInterval(() => {
+            count -= 0.1;
+            document.getElementById("counter").textContent = `Count: ${count.toFixed(1)}`;
+    
+            // Stop the countdown when it reaches 0
+            if (count <= 0) {
+              clearInterval(countdownInterval);
+              document.getElementById("counter").textContent = "Count: 0.0";
+              startTime = Date.now(); // Record the start time
+            }
+          }, 100);
+        }
+    
+        // Function to record the halt time
+        function recordTime() {
+          haltTime = Date.now(); // Record the current time
+          console.log(`Halt time: ${haltTime}`);
+    
+          // Calculate the reaction time if the game has started
+          if (startTime) {
+            const reactionTime = haltTime - startTime;
+            document.getElementById("target").textContent = `Your reaction time: ${reactionTime} ms`;
+          } else {
+            document.getElementById("target").textContent = "You pressed Halt too early!";
+          }
+    
+          // Stop the countdown
+          clearInterval(countdownInterval);
+        }
+    
+        // Set button event listeners
+        document.getElementById("go-button").onclick = startCountdown;
+        document.getElementById("halt-button").onclick = recordTime;
+      </script>
+    </body>
+    </html>
+    
