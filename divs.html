@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Siddharth Builds List with Divs</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <style>
+    /* Style for the flex container */
+    #numbers {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 20px;
+    }
+
+    /* Style for each div in the flex container */
+    .divlist {
+      padding: 10px;
+      border: 1px solid #f02c2c;
+      background-color: #efe8e8; flex-direction:row;
+      border-radius: 5px;
+      
+    }
+  </style>
+</head>
+<body>
+  <div class="container text-center">
+    <h2>Siddharth Builds List with Divs</h2>
+    <input type="text" id="inputNum" placeholder="Enter a number">
+    <button type="button" class="btn btn-primary" id="add-end-button">Add end</button>
+    <button type="button" class="btn btn-success" id="add-front-button">Add front</button>
+    <button type="button" class="btn btn-danger" id="remove-button">Remove</button>
+    <div id="numbers">
+      <!-- Existing div elements -->
+      <div class="divlist">1</div>
+      <div class="divlist">2</div>
+      <div class="divlist">3</div>
+    </div>
+  </div>
+
+  <script>
+    
+    function addEnd() {
+      
+      const inputValue = document.getElementById("inputNum").value;
+
+      
+      if (inputValue.trim() === "") {
+        alert("Please enter a number!");
+        return;
+      }
+
+      
+      const newDiv = document.createElement("div");
+
+      
+      newDiv.innerHTML = inputValue;
+
+      
+      newDiv.className = "divlist";
+
+    
+      document.getElementById("numbers").appendChild(newDiv);
+
+      
+      document.getElementById("inputNum").value = "";
+    }
+
+    
+    function addFront() {
+      
+      const inputValue = document.getElementById("inputNum").value;
+
+      
+      if (inputValue.trim() === "") {
+        alert("Please enter a number!");
+        return;
+      }
+
+      
+      const newDiv = document.createElement("div");
+
+      
+      newDiv.innerHTML = inputValue;
+
+      
+      newDiv.className = "divlist";
+
+      const container = document.getElementById("numbers");
+
+      
+      container.insertBefore(newDiv, container.firstChild);
+
+      
+      document.getElementById("inputNum").value = "";
+    }
+
+    function remove() {
+      
+      const divListItems = document.getElementsByClassName("divlist");
+
+   
+      const length = divListItems.length;
+
+      
+      if (length > 0) {
+    
+        const middleIndex = Math.floor(length / 2);
+
+       
+        divListItems[middleIndex].remove();
+      } else {
+        alert("No elements to remove!");
+      }
+    }
+
+    
+    document.getElementById("add-end-button").onclick = addEnd;
+    document.getElementById("add-front-button").onclick = addFront;
+    document.getElementById("remove-button").onclick = remove;
+  </script>
+</body>
+</html>

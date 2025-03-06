@@ -15,6 +15,9 @@
       font-weight: bold;
       margin: 20px 0;
       color : red;
+      
+
+    
     }
   </style>
 </head>
@@ -28,12 +31,13 @@
   </div>
 
   <script>
-    // Variables
-    let haltTime = undefined; // To record when the halt button is pressed
+   
+    
+   let haltTime = undefined; 
 
     // Function to handle the halt button click
     function recordTime() {
-      haltTime = Date.now(); // Record the current time
+      haltTime = Date.now(); 
       console.log(`Halt time: ${haltTime}`);
     }
 
@@ -49,13 +53,13 @@
         }, (5 - i) * 1000);
       }
 
-      // Check the user's reaction time after 5 seconds
-      setTimeout(() => {
-        if (haltTime === undefined) {
-          // User was too slow
-          document.getElementById("target").innerHTML = "Not soon enough";
+      
+setTimeout(() => {
+    if (haltTime === undefined) {
+         
+    document.getElementById("target").innerHTML = "Not soon enough";
         } else {
-          // Calculate the elapsed time
+          
           const targetTime = Date.now();
           const elapsedTime = targetTime - haltTime;
           document.getElementById("target").innerHTML = `Time was ${elapsedTime} ms`;
