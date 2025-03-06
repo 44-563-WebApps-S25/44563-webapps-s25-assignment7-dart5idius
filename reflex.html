@@ -14,10 +14,7 @@
       font-size: 24px;
       font-weight: bold;
       margin: 20px 0;
-      color : red;
-      
-
-    
+      color: red;
     }
   </style>
 </head>
@@ -31,13 +28,11 @@
   </div>
 
   <script>
-   
-    
-   let haltTime = undefined; 
+    let haltTime = undefined;
 
     // Function to handle the halt button click
     function recordTime() {
-      haltTime = Date.now(); 
+      haltTime = Date.now();
       console.log(`Halt time: ${haltTime}`);
     }
 
@@ -46,25 +41,29 @@
       // Reset haltTime
       haltTime = undefined;
 
-      // Countdown from 5 to 0
-      for (let i = 5; i >= 0; i--) {
+      // Generate a random starting value between 2 and 10
+      const startValue = Math.floor(Math.random() * 9) + 2; // Random number between 2 and 10
+      console.log(`Starting countdown from: ${startValue}`);
+
+      // Countdown from the random start value to 0
+      for (let i = startValue; i >= 0; i--) {
         setTimeout(() => {
           document.getElementById("counter").innerHTML = `Count: ${i}`;
-        }, (5 - i) * 1000);
+        }, (startValue - i) * 1000);
       }
 
-      
-setTimeout(() => {
-    if (haltTime === undefined) {
-         
-    document.getElementById("target").innerHTML = "Not soon enough";
+      // Check the user's reaction time after the countdown
+      setTimeout(() => {
+        if (haltTime === undefined) {
+          // User was too slow
+          document.getElementById("target").innerHTML = "Not soon enough";
         } else {
-          
+          // Calculate the elapsed time
           const targetTime = Date.now();
           const elapsedTime = targetTime - haltTime;
           document.getElementById("target").innerHTML = `Time was ${elapsedTime} ms`;
         }
-      }, 5000);
+      }, startValue * 1000); // Use the random start value for the delay
     }
 
     // Set button event listeners

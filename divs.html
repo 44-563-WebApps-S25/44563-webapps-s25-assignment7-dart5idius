@@ -18,9 +18,8 @@
     .divlist {
       padding: 10px;
       border: 1px solid #f02c2c;
-      background-color: #efe8e8; flex-direction:row;
+      background-color: #efe8e8;
       border-radius: 5px;
-      
     }
   </style>
 </head>
@@ -31,6 +30,7 @@
     <button type="button" class="btn btn-primary" id="add-end-button">Add end</button>
     <button type="button" class="btn btn-success" id="add-front-button">Add front</button>
     <button type="button" class="btn btn-danger" id="remove-button">Remove</button>
+    <button type="button" class="btn btn-warning" id="promote-button">Promote</button>
     <div id="numbers">
       <!-- Existing div elements -->
       <div class="divlist">1</div>
@@ -40,85 +40,113 @@
   </div>
 
   <script>
-    
+    // Function to add a new div to the end of the flex container
     function addEnd() {
-      
+      // Get the input value
       const inputValue = document.getElementById("inputNum").value;
 
-      
+      // Check if the input is not empty
       if (inputValue.trim() === "") {
         alert("Please enter a number!");
         return;
       }
 
-      
+      // Create a new div element
       const newDiv = document.createElement("div");
 
-      
+      // Set the innerHTML of the new div to the input value
       newDiv.innerHTML = inputValue;
 
-      
+      // Set the className of the new div to "divlist"
       newDiv.className = "divlist";
 
-    
+      // Append the new div to the flex container
       document.getElementById("numbers").appendChild(newDiv);
 
-      
+      // Clear the input field
       document.getElementById("inputNum").value = "";
     }
 
-    
+    // Function to add a new div to the front of the flex container
     function addFront() {
-      
+      // Get the input value
       const inputValue = document.getElementById("inputNum").value;
 
-      
+      // Check if the input is not empty
       if (inputValue.trim() === "") {
         alert("Please enter a number!");
         return;
       }
 
-      
+      // Create a new div element
       const newDiv = document.createElement("div");
 
-      
+      // Set the innerHTML of the new div to the input value
       newDiv.innerHTML = inputValue;
 
-      
+      // Set the className of the new div to "divlist"
       newDiv.className = "divlist";
 
+      // Get the container div
       const container = document.getElementById("numbers");
 
-      
+      // Insert the new div at the front of the container
       container.insertBefore(newDiv, container.firstChild);
 
-      
+      // Clear the input field
       document.getElementById("inputNum").value = "";
     }
 
+    // Function to remove the middle element from the flex container
     function remove() {
-      
+      // Get all elements with the class "divlist"
       const divListItems = document.getElementsByClassName("divlist");
 
-   
+      // Get the length of the divListItems
       const length = divListItems.length;
 
-      
+      // Check if there are elements to remove
       if (length > 0) {
-    
+        // Calculate the index of the middle element
         const middleIndex = Math.floor(length / 2);
 
-       
+        // Remove the middle element
         divListItems[middleIndex].remove();
       } else {
         alert("No elements to remove!");
       }
     }
 
-    
+    // Function to promote a random element one location closer to the front
+    function promote() {
+      // Get all elements with the class "divlist"
+      const divListItems = document.getElementsByClassName("divlist");
+
+      // Get the length of the divListItems
+      const length = divListItems.length;
+
+      // Check if there are at least 2 elements to promote
+      if (length > 1) {
+        // Randomly select an element (excluding the first one)
+        const randomIndex = Math.floor(Math.random() * (length - 1)) + 1;
+
+        // Get the selected element and its previous sibling
+        const selectedElement = divListItems[randomIndex];
+        const previousElement = divListItems[randomIndex - 1];
+
+        // Swap their positions
+        const container = document.getElementById("numbers");
+        container.insertBefore(selectedElement, previousElement);
+      } else {
+        alert("Not enough elements to promote!");
+      }
+    }
+
+    // Set button event listeners
     document.getElementById("add-end-button").onclick = addEnd;
     document.getElementById("add-front-button").onclick = addFront;
     document.getElementById("remove-button").onclick = remove;
+    document.getElementById("promote-button").onclick = promote;
   </script>
 </body>
 </html>
